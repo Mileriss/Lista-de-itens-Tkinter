@@ -1,5 +1,14 @@
 from tkinter import *
+from tkinter import messagebox
 import tkinter.font as font
+
+#Função para adicionar itens na lista
+def adicionatItem():
+    if campo_adicionar.get() == "":
+        messagebox.showerror(title="Erro ao adicionar", message="Nao é possivel adicionar itens vazios!")
+    else:
+        tela_itens.insert(END, campo_adicionar.get())
+        messagebox.showinfo(title="Adicionar item", message="Item adicionado com sucesso!")
 
 app = Tk()
 app.title('Lista de itens')
@@ -17,7 +26,7 @@ campo_adicionar.place(relx=0.12, rely=0.5, height=25, width=150)
 
 #Adicionar o botão de inserir item
 fonte_btn_inserir = font.Font(family='Cambria', size=12, weight='bold')
-btn_inserir = Button(app, text="Adicionar item",background='#a0a3a2', border=1, font=fonte_btn_inserir)
+btn_inserir = Button(app, text="Adicionar item",background='#a0a3a2', border=1, font=fonte_btn_inserir, command=adicionatItem)
 btn_inserir.place(relx=0.2, rely=0.6, height=30, width=120)
 
 #Adiconar o botão de alterar item
