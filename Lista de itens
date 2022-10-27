@@ -1,0 +1,116 @@
+from tkinter import *
+from tkinter import messagebox
+import tkinter as tk
+import tkinter.font as font
+from tkinter.filedialog import asksaveasfile
+
+lista = []
+
+#Função para adicionar itens da lista
+def adicionarItem():
+    try:
+        if campo_adicionar.get() == "":
+            messagebox.showwarning(title="Erro ao adicionar", message="Não é possivel adicionar itens vazios!")
+        else:
+            lista.append(tela_itens.insert(END, campo_adicionar.get()))
+            messagebox.showinfo(title="Adicionar item", message=f"Item '{campo_adicionar.get()}' adicionado com sucesso!")
+    except:
+        messagebox.showerror(title="ERRO!", message="Ocorreu um erro na função 'adicionarItem', por favor revise o código")
+
+#Função para deletar itens da lista
+def deletarItem():
+    try:
+        if len(lista) == 0:
+            messagebox.showwarning(title="Sem itens", message="Não há itens para deletar!")
+        elif len(lista)  > 0:
+            msg_del = messagebox.askyesnocancel(title="Deletar item?", message=f"Deseja deletar o item '{campo_adicionar.get()}'")
+            if msg_del == True:
+                lista.remove(tela_itens.delete(ACTIVE))
+                messagebox.showinfo(title="Item removido", message=f"O item '{campo_adicionar.get()}' foi deletado da lista!")
+            elif msg_del == False or msg_del == "Cancelar":
+                pass
+    except:
+        messagebox.showerror(title="ERRO!", message="Ocorreu um erro na função 'deletarItem', por favor revise o código")
+
+def salvarLista():
+    if True:
+        arquivos = open("lista.txt", "a")
+        for l in lista:
+            lista.append(str(l) + "\n")
+            asksaveasfile()
+            arquivos.writelines(lista)
+
+
+#Configuração da janela
+#A janela terá o nome de 'app' para manter o padrão dos outros projetos
+app = Tk()
+app.title('Lista de itens')
+app.configure(background='#0e2440')
+app.geometry('200x300')
+app.resizable(False, False)
+
+#Adicionar a tela para armazenar os itens
+fonte_tela_itens = font.Font(family="MV Boli", size=15)
+
+tela_itens = Listbox(app,
+                    relief='sunken', 
+                    background='#8ba2c7', 
+                    border=4, 
+                    highlightcolor='#0a80a1', 
+                    highlightthickness=2, 
+                    font=fonte_tela_itens,
+                    justify='center',
+                    cursor='dot')
+tela_itens.pack(padx=5, pady=5, fill=BOTH, expand=True)
+
+#Barra de navegação lateral direita da lista
+barra = Scrollbar(tela_itens)
+barra.pack(side = RIGHT, fill = 'y')
+tela_itens.config(yscrollcommand = barra.set)
+barra.config(command = tela_itens.yview)
+
+#Adicionar campo para digitar o nome do item
+fonte_campo_adicionar = font.Font(family="Cambria", size=10)
+
+campo_adicionar = Entry(app, 
+                        width=26, 
+                        relief='ridge', 
+                        background='white', 
+                        border=2, 
+                        highlightcolor='black', 
+                        highlightthickness=1,
+                        font=fonte_campo_adicionar)
+campo_adicionar.pack(padx=5, pady=5, fill=BOTH)
+
+#Adicionar o botão de inserir item
+fonte_btn_inserir = font.Font(family='Cambria', size=12, weight='bold')
+btn_inserir = Button(app, 
+                    text="Adicionar item", 
+                    background='#a0a3a2', 
+                    border=1, 
+                    font=fonte_btn_inserir, 
+                    command=adicionarItem)
+btn_inserir.pack(padx=5, pady=5, fill=BOTH)
+
+#Adicionar o botão de deletar item
+fonte_btn_deletar = font.Font(family='Cambria', size=12, weight='bold')
+btn_deletar = Button(app, 
+                    text="Deletar item", 
+                    background='red', 
+                    fg='white',
+                    border=1, 
+                    font=fonte_btn_deletar, 
+                    command=deletarItem)
+btn_deletar.pack(padx=5, pady=5, fill=BOTH)
+
+#Botão para imprimir a lista em um arquivo .txt ou PDF
+fonte_btn_imprimir = font.Font(family='Cambria', size=12, weight='bold')
+btn_imprimir = Button(app, 
+                    text='Imprimir Lista', 
+                    background='#a0a3a2', 
+                    border=1, 
+                    font=fonte_btn_imprimir,
+                    command=salvarLista)
+btn_imprimir.pack(padx=5, pady=5, fill=BOTH)
+
+app.mainloop()
