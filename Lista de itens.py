@@ -1,4 +1,6 @@
+from audioop import add
 from tkinter import *
+import tkinter as tk
 from tkinter import messagebox
 import tkinter.font as font
 
@@ -19,6 +21,30 @@ def deletarItem():
         lista.remove(tela_itens.delete(ACTIVE))
         messagebox.showinfo(title="Item removido", message="O item foi deletado da lista!")
 
+<<<<<<< HEAD
+def alterarItem():
+    app2 = tk.Toplevel()
+    app2.title("Alterar item")
+    app2.geometry("250x200")
+    app2.configure(background='#0e2440')
+    app2.resizable(False, False)
+    fonte_label_alterar = font.Font(family="Cambria", size=15, weight='bold')
+    titulo_alterar = tk.Label(app2, text="Alteração de item", height=2, width=15, font=fonte_label_alterar, bg='#0e2440', fg='White').pack(padx=2, pady=2)
+    fonte_label_items = font.Font(family='Cambria', size=12)
+    titulo_item_atual = tk.Label(app2, text="Item Atual:", bg='#0e2440', font=fonte_label_items, fg='White').pack()
+    campo_item_atual = tk.Entry(app2, bd=2, highlightcolor='#0a80a1', highlightthickness=1).pack(padx=2, pady=2)
+    titulo_novo_item = tk.Label(app2, text="Novo Item:", bg='#0e2440', font=fonte_label_items, fg='White').pack()
+    novo_item = tk.Entry(app2, bd=2, highlightcolor='#0a80a1', highlightthickness=1).pack(padx=2, pady=2)
+    fonte_btn = font.Font(family='Cambria', size=10, weight='bold')
+    exc_lista = lista.remove(item_atual.delete())
+    add_lista = lista.append(novo_item)
+    item_atual = tela_itens.get(ACTIVE)
+    novo_item = novo_item.insert(END, novo_item.get())
+    condicao = exc_lista and add_lista and novo_item if item_atual in lista else print("Algo deu errado!")
+    btn_alterar = tk.Button(app2, text="Alterar", font=fonte_btn, fg="Black", justify='center', command=condicao).pack(pady=6)
+
+=======
+>>>>>>> 23a49669fa773ae20572f3fdf2720d36ebc03ae9
 
 app = Tk()
 app.title('Lista de itens')
@@ -27,7 +53,11 @@ app.geometry('205x340')
 app.resizable(False, False)
 
 #Adicionar a tela para armazenar os itens
+<<<<<<< HEAD
+fonte_tela_itens = font.Font(family="Elsie Font", size=15)
+=======
 fonte_tela_itens = font.Font(family="MV Boli", size=15)
+>>>>>>> 23a49669fa773ae20572f3fdf2720d36ebc03ae9
 tela_itens = Listbox(app,
                     relief='sunken', 
                     background='#8ba2c7', 
@@ -38,6 +68,17 @@ tela_itens = Listbox(app,
                     justify='center')
 tela_itens.place(relx=0.02, rely=0.02, height=155, width=195)
 
+<<<<<<< HEAD
+#Barra de navegação lateral da lista
+barra = Scrollbar(tela_itens)
+barra.pack(side = RIGHT, fill = 'y')
+tela_itens.config(yscrollcommand = barra.set)
+barra.config(command = tela_itens.yview)
+
+
+#Adicionar campo para digitar o nome do item
+fonte_campo_adicionar = font.Font(family="Cambria", size=10)
+=======
 #Barra de navegação lateral do app 
 barra = Scrollbar(tela_itens)
 barra.pack(side=RIGHT, fill=BOTH)
@@ -45,6 +86,7 @@ barra.pack(side=RIGHT, fill=BOTH)
 
 #Adicionar campo para digitar o nome do item
 fonte_campo_adicionar = font.Font(family="", size=10)
+>>>>>>> 23a49669fa773ae20572f3fdf2720d36ebc03ae9
 campo_adicionar = Entry(app, 
                         width=26, 
                         relief='ridge', 
@@ -71,7 +113,12 @@ btn_alterar = Button(app,
                     text="Alterar item", 
                     background='#a0a3a2', 
                     border=1, 
+<<<<<<< HEAD
+                    font=fonte_btn_alterar,
+                    command=alterarItem)
+=======
                     font=fonte_btn_alterar)
+>>>>>>> 23a49669fa773ae20572f3fdf2720d36ebc03ae9
 btn_alterar.place(relx=0.2, rely=0.7, height=30, width=120)
 
 #Adicionar o botão de deletar item
